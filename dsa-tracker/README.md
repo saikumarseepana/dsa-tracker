@@ -1,12 +1,52 @@
-# React + Vite
+# 🧠 DSA Tracker
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A basic React app to track DSA (Data Structures and Algorithms) preparation progress with a checkbox-based topic list. Built with Vite and React.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✅ MVP Completed Features
 
-## Expanding the ESLint configuration
+- ✅ Topic list rendered dynamically
+- ✅ Checkbox state saved using `localStorage`
+- ✅ Authentication logic using React Context
+- ✅ Admin-only access to add/delete topics
+- ✅ Separate login flow for users and admin
+- ✅ Navigation using React Router
+- ✅ Logout functionality with route protection
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 📂 Tech Stack
+
+- **Frontend**: React + Vite  
+- **Routing**: React Router  
+- **State Management**: React Context + Local Storage
+
+---
+
+## 🧑‍💻 Roles
+
+**Admin**:
+- Can log in with admin credentials
+- Can add and delete DSA topics
+
+**User**:
+- Can sign up and log in
+- Can view and track their DSA progress
+
+---
+
+## 🛠️ How to Run Locally
+
+```bash
+# Clone the repository
+git clone https://github.com/saikumarseepana/dsa-tracker.git
+
+# Navigate to the project folder
+cd dsa-tracker
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm run dev
