@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 // Create context
 const AuthContext = createContext();
@@ -8,19 +8,30 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   // Example user data with admin flag (hardcoded for now)
-  const [user, setUser] = useState({ 
-    isLoggedIn: false, 
-    isAdmin: true, // You can toggle this flag based on admin or normal user
-  });
+  const [user, setUser] = useState(null);
 
   // Login function
-  const login = () => {
-    setUser({ ...user, isLoggedIn: true });
+  const login = (userDetails) => {
+
+    setUser(userDetails);
+    localStorage.setItem('user', JSON.stringify(userDetails));
+    // const storedUsername = localStorage.getItem('username');
+    // const storedPassword = localStorage.getItem('password');
+
+    // if(username === storedUsername && password === storedPassword) {
+    //     setUser({ username });
+    //     return true;
+    // } else {
+    //     alert('Invalid credentials');
+    //     return false;
+    // }
   };
 
   // Logout function
   const logout = () => {
-    setUser({ ...user, isLoggedIn: false });
+    
+    localStorage.removeItem('authToken');
+    setUser(null);
   };
 
   return (
