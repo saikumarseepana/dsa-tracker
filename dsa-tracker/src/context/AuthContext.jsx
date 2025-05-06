@@ -3,35 +3,35 @@ import { createContext, useContext, useState } from 'react';
 // Create context
 const AuthContext = createContext();
 
-// Custom hook for using the context
-export const useAuth = () => useContext(AuthContext);
-
 export const AuthProvider = ({ children }) => {
   // Example user data with admin flag (hardcoded for now)
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem('user');
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
 
-  // Login function
-  const login = (userDetails) => {
+  const login = ({ username, password }) => {
+    const storedUser = JSON.parse(localStorage.getItem('users')) || [];
 
-    setUser(userDetails);
-    localStorage.setItem('user', JSON.stringify(userDetails));
-    // const storedUsername = localStorage.getItem('username');
-    // const storedPassword = localStorage.getItem('password');
+    const userFromLocalStorage = storedUser.find(
+        (user) => user.username === username && user.password === password
+    );
 
-    // if(username === storedUsername && password === storedPassword) {
-    //     setUser({ username });
-    //     return true;
-    // } else {
-    //     alert('Invalid credentials');
-    //     return false;
-    // }
+    if(userFromLocalStorage) {
+        setUser(userFromLocalStorage);
+        localStorage.setItem('user', JSON.stringify(userFromLocalStorage));
+        return true;
+    }
+    return false;
   };
+
+  
 
   // Logout function
   const logout = () => {
-    
-    localStorage.removeItem('authToken');
     setUser(null);
+    localStorage.removeItem('user');
+    
   };
 
   return (
@@ -40,3 +40,5 @@ export const AuthProvider = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+
+export const useAuth = () => useContext(AuthContext);

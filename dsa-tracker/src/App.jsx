@@ -1,6 +1,6 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-// import { useAuth } from './context/AuthContext'; 
+import React, { useEffect } from 'react';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from './context/AuthContext'; 
 
 import AdminProtectedRoute from './components/AdminProtectedRoute'; // Import AdminProtectedRoute
 import ProtectedRoute from './components/ProtectedRoute';  // Import ProtectedRoute
@@ -12,7 +12,17 @@ import AdminDashboard from './pages/AdminDashboard';  // Admin dashboard page
 import Unauthorized from './pages/Unauthorized';  // Unauthorized page
 
 const App = () => {
-  // const { user } = useAuth();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const protectedRoutes = ['/dashboard', '/login/admin-dashboard'];
+
+    if(!user && protectedRoutes.includes(location.pathname)){
+      navigate('/login', {replace: true});
+    }
+  }, [location, user, navigate]);
 
   return (
       <Routes>
